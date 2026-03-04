@@ -78,6 +78,58 @@ To install Excel MCP Server for Claude Desktop automatically via [Smithery](http
 npx -y @smithery/cli install @negokaz/excel-mcp-server --client claude
 ```
 
+## Operator Setup (Codex + Claude Code)
+
+For local multi-client setups, use a persistent MCP data root:
+
+- `MCP_DATA_ROOT=/Volumes/Data/_ai/mcp-data`
+- Recommended server data directory: `/Volumes/Data/_ai/mcp-data/excel-mcp-server`
+
+### Codex CLI
+
+Add the server globally:
+
+```bash
+codex mcp add excel-mcp-server bash -lc 'mkdir -p /Volumes/Data/_ai/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server'
+```
+
+Verify:
+
+```bash
+codex mcp get excel-mcp-server
+codex mcp list
+```
+
+User-scope config location: `~/.codex/config.toml`
+
+### Claude Code
+
+Add this to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "excel-mcp-server": {
+      "type": "stdio",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "mkdir -p /Volumes/Data/_ai/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server"
+      ],
+      "env": {
+        "EXCEL_MCP_PAGING_CELLS_LIMIT": "4000"
+      }
+    }
+  }
+}
+```
+
+### Local LLM / Provider Notes
+
+- This server uses stdio MCP and works with any MCP-compatible client/provider combination.
+- Keep the server launch command stable (`npx --yes @negokaz/excel-mcp-server`) and only switch the client-side model/provider.
+- Keep runtime data/state under `/Volumes/Data/_ai/mcp-data/excel-mcp-server` so multiple clients can share predictable behavior.
+
 <h2 id="tools">Tools</h2>
 
 ### `excel_describe_sheets`
