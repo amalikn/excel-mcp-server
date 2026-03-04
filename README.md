@@ -130,6 +130,14 @@ Add this to `~/.claude.json`:
 - Keep the server launch command stable (`npx --yes @negokaz/excel-mcp-server`) and only switch the client-side model/provider.
 - Keep runtime data/state under `/Volumes/Data/_ai/mcp-data/excel-mcp-server` so multiple clients can share predictable behavior.
 
+### mcp_stuff Submodule Note
+
+- If you use the `mcp_stuff` parent repository, this repo can be tracked as the `excel-mcp-server` submodule and pinned via parent pointer updates.
+- After updating this repo, bump the parent pointer with:
+  - `cd /Volumes/Data/_ai/_mcp/mcp_stuff`
+  - `git add excel-mcp-server .gitmodules`
+  - `git commit -m "chore: bump excel-mcp-server submodule pointer"`
+
 <h2 id="tools">Tools</h2>
 
 ### `excel_describe_sheets`
