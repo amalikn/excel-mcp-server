@@ -82,15 +82,15 @@ npx -y @smithery/cli install @negokaz/excel-mcp-server --client claude
 
 For local multi-client setups, use a persistent MCP data root:
 
-- `MCP_DATA_ROOT=/Volumes/Data/_ai/mcp-data`
-- Recommended server data directory: `/Volumes/Data/_ai/mcp-data/excel-mcp-server`
+- `MCP_DATA_ROOT=/Volumes/Data/_ai/_mcp/mcp-data`
+- Recommended server data directory: `/Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server`
 
 ### Codex CLI
 
 Add the server globally:
 
 ```bash
-codex mcp add excel-mcp-server bash -lc 'mkdir -p /Volumes/Data/_ai/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server'
+codex mcp add excel-mcp-server bash -lc 'mkdir -p /Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server'
 ```
 
 Verify:
@@ -114,7 +114,7 @@ Add this to `~/.claude.json`:
       "command": "bash",
       "args": [
         "-lc",
-        "mkdir -p /Volumes/Data/_ai/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server"
+        "mkdir -p /Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server && cd /Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server && exec npx --yes @negokaz/excel-mcp-server"
       ],
       "env": {
         "EXCEL_MCP_PAGING_CELLS_LIMIT": "4000"
@@ -128,7 +128,7 @@ Add this to `~/.claude.json`:
 
 - This server uses stdio MCP and works with any MCP-compatible client/provider combination.
 - Keep the server launch command stable (`npx --yes @negokaz/excel-mcp-server`) and only switch the client-side model/provider.
-- Keep runtime data/state under `/Volumes/Data/_ai/mcp-data/excel-mcp-server` so multiple clients can share predictable behavior.
+- Keep runtime data/state under `/Volumes/Data/_ai/_mcp/mcp-data/excel-mcp-server` so multiple clients can share predictable behavior.
 
 ### mcp_stuff Submodule Note
 
@@ -252,3 +252,14 @@ The maximum number of cells to read in a single paging operation.
 Copyright (c) 2025 Kazuki Negoro
 
 excel-mcp-server is released under the [MIT License](LICENSE)
+
+## Local Customization Tracking
+- Local machine-specific integration, client wiring, and operational state are tracked under the external data root.
+- Local metadata path: `/Volumes/Data/_ai/_mcp/mcp-data/<name>/meta`
+- Repo-side capability contract is in `docs/local-capability/`.
+- Secrets are never stored in repo docs; only variable names and loading locations are documented.
+
+## Local Enhancements Capture (2026-03-13)
+- Captured current local changes, configuration updates, and operational enhancements for GitHub publication.
+- Includes synchronization with sub-repo link updates where applicable.
+- Cross-reference local docs and capability notes added in this repository.
